@@ -8,10 +8,9 @@ const CompressionWebpackPlugin = require('compression-webpack-plugin')
 const mode = process.env.mode || 'production'
 
 const config = {
-  gzip: false, //是否启动gzip压缩
-  analyzer: false, //是否用树形图显示webpack输出文件的大小
+  gzip: true, //是否启动gzip压缩
   cssExtract: true, //是否提取css
-  Global_CSS: [resolve('src/stylus/index.styl')] //全局预处理器样式路径
+  Global_CSS: [resolve('src/scss/index.scss')] //全局预处理器样式路径
 }
 
 const webpackConfig = {
@@ -49,12 +48,16 @@ const webpackConfig = {
       {
         test: /\.s[ac]ss$/,
         loader: [config.cssExtract ? MiniCssExtractPlugin.loader :
-          'vue-style-loader', 'css-loader', 'postcss-loader', 'stylus-loader', {
-          loader: 'style-resources-loader',
-          options: {
-            patterns: config.Global_CSS
-          }
-        }]
+          'vue-style-loader',
+          'css-loader',
+          'postcss-loader',
+          'sass-loader',
+          {
+            loader: 'style-resources-loader',
+            options: {
+              patterns: config.Global_CSS
+            }
+          }]
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -106,6 +109,8 @@ webpackConfig.devServer = {
   compress: true,
   //自动打开网页
   open: true,
+  //热模块替换
+  hot: true,
   //端口
   port: 9999
 }
