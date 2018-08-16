@@ -8,8 +8,6 @@
   }
 </script>
 
-<style scoped lang="scss">
-  div {
-    color: #000;
-  }
+<style scoped>
+
 </style>

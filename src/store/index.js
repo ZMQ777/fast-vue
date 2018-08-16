@@ -5,15 +5,9 @@ import createPersistedState from 'vuex-persistedstate'
 Vue.use(Vuex)
 
 let store = new Vuex.Store({
-  state: {
-    a: 1
-  },
+  state: {},
   getters: {},
-  mutations: {
-    edit(state) {
-      state.a++
-    }
-  },
+  mutations: {},
   actions: {},
   plugins: [createPersistedState()]
 })

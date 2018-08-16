@@ -7,12 +7,6 @@ const CompressionWebpackPlugin = require('compression-webpack-plugin')
 
 const mode = process.env.mode || 'production'
 
-const config = {
-  gzip: true, //是否启动gzip压缩
-  cssExtract: true, //是否提取css
-  Global_CSS: [resolve('src/scss/index.scss')] //全局预处理器样式路径
-}
-
 const webpackConfig = {
   //环境
   mode: mode,
@@ -46,18 +40,12 @@ const webpackConfig = {
         loader: 'babel-loader'
       },
       {
-        test: /\.s[ac]ss$/,
-        loader: [config.cssExtract ? MiniCssExtractPlugin.loader :
-          'vue-style-loader',
+        test: /\.s?css$/,
+        loader: [
+          MiniCssExtractPlugin.loader,
           'css-loader',
           'postcss-loader',
-          'sass-loader',
-          {
-            loader: 'style-resources-loader',
-            options: {
-              patterns: config.Global_CSS
-            }
-          }]
+          'sass-loader']
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -87,32 +75,28 @@ const webpackConfig = {
   },
   plugins: [
     new VueLoaderPlugin(),
-    new HtmlWebpackPlugin({template: 'index.html'}),//自动帮你生成一个 html 文件，并且引用相关的js文件
+    new MiniCssExtractPlugin(),//抽离css样式
+    new CompressionWebpackPlugin({threshold: 10240}),//压缩成gzip
+    new HtmlWebpackPlugin({template: 'index.html'}),//生成一个新的 index.html 文件，并且引用相关的js文件
     new CopyWebpackPlugin([{from: resolve('static'), to: resolve('dist/static'), ignore: ['.*']}])
   ],
-  //优化选项
   optimization: {
-    //是否压缩js代码,默认调用压缩插件,覆盖mode配置
-    minimize: mode === 'production'
+    //是否压缩js代码
+    minimize: true
+  },
+  //webpack-dev-server配置
+  devServer: {
+    //绑定主机,局域网能访问
+    host: '192.168.124.10',
+    //编译错误和改动才提示
+    stats: 'minimal',
+    //gzip压缩
+    compress: true,
+    //自动打开网页
+    open: true,
+    //端口
+    port: 9999
   }
-}
-
-//抽离css样式
-config.cssExtract ? webpackConfig.plugins.push(new MiniCssExtractPlugin()) : null
-//是否压缩成gzip
-config.gzip ? webpackConfig.plugins.push(new CompressionWebpackPlugin({threshold: 10240})) : null
-//webpack-dev-server配置
-webpackConfig.devServer = {
-  //编译错误和改动才提示
-  stats: 'minimal',
-  //gzip压缩
-  compress: true,
-  //自动打开网页
-  open: true,
-  //热模块替换
-  hot: true,
-  //端口
-  port: 9999
 }
 
 //相对路径转绝对路径

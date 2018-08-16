@@ -9,14 +9,10 @@
     name: 'App',
     components: {
       Index
-    },
-    mounted() {
-      this.$store.commit('edit')
-      console.log(this.$store.state)
     }
   }
 </script>
 
-<style scoped>
-
+<style lang="scss">
+  @import "scss/index";
 </style>
