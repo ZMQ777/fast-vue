@@ -1,11 +1,7 @@
 module.exports = {
+  //启动插件
   plugins: {
-    autoprefixer: {
-      browsers: []
-    },
-    cssnano: {
-      //避免cssnano重新计算z-index
-      safe: true
-    }
+    autoprefixer: {},
+    cssnano: {}
   }
 }

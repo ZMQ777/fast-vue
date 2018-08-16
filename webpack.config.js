@@ -25,8 +25,9 @@ const webpackConfig = {
     extensions: ['.js', '.vue', '.css', '.scss'],
     //路径别名
     alias: {
-      // 'vue$': 'vue/dist/vue.esm.js',
-      '@': resolve('src')
+      '@': resolve('src'),
+      '~': resolve('src', 'pages'),
+      '$': resolve('src', 'components')
     }
   },
   module: {
@@ -45,7 +46,8 @@ const webpackConfig = {
           MiniCssExtractPlugin.loader,
           'css-loader',
           'postcss-loader',
-          'sass-loader']
+          'sass-loader'
+        ]
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -78,7 +80,7 @@ const webpackConfig = {
     new MiniCssExtractPlugin(),//抽离css样式
     new CompressionWebpackPlugin({threshold: 10240}),//压缩成gzip
     new HtmlWebpackPlugin({template: 'index.html'}),//生成一个新的 index.html 文件，并且引用相关的js文件
-    new CopyWebpackPlugin([{from: resolve('static'), to: resolve('dist/static'), ignore: ['.*']}])
+    new CopyWebpackPlugin([{from: resolve('static'), to: resolve('dist', 'static'), ignore: ['.*']}])
   ],
   optimization: {
     //是否压缩js代码
@@ -100,8 +102,8 @@ const webpackConfig = {
 }
 
 //相对路径转绝对路径
-function resolve(dir) {
-  return path.join(__dirname, dir)
+function resolve(...dir) {
+  return path.join(__dirname, ...dir)
 }
 
 module.exports = webpackConfig
