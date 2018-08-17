@@ -2,7 +2,7 @@
   "name": "fast-vue",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/main.js",
   "scripts": {
     "dev": "cross-env mode=development webpack-dev-server",
     "build": "rimraf dist & cross-env mode=production webpack --progress"
