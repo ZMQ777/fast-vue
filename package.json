@@ -1,15 +1,12 @@
 {
-  "name": "fast-vue",
+  "name": "untitled",
   "version": "1.0.0",
-  "description": "",
-  "main": "src/main.js",
+  "main": "index.js",
+  "license": "MIT",
   "scripts": {
     "dev": "cross-env mode=development webpack-dev-server",
     "build": "rimraf dist & cross-env mode=production webpack --progress"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",

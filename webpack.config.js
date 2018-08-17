@@ -5,13 +5,9 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
 
-const mode = process.env.mode || 'production'
-
 const webpackConfig = {
   //环境
-  mode: mode,
-  //编译错误和改动才提示
-  stats: 'minimal',
+  mode: process.env.mode,
   entry: {
     main: resolve('src/main.js')
   },
@@ -82,6 +78,8 @@ const webpackConfig = {
     new HtmlWebpackPlugin({template: 'index.html'}),//生成一个新的 index.html 文件，并且引用相关的js文件
     new CopyWebpackPlugin([{from: resolve('static'), to: resolve('dist', 'static'), ignore: ['.*']}])
   ],
+  //编译错误和改动才提示
+  stats: 'minimal',
   optimization: {
     //是否压缩js代码
     minimize: true
