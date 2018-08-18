@@ -14,7 +14,7 @@ module.exports = {
   output: {
     //publicPath: 'https://baidu.com',//覆盖path路径使用CDN
     path: resolve('dist'),
-    filename: '[name].js'
+    filename: 'js/[name].js'
   },
   resolve: {
     //引入文件可以不指定的扩展名
@@ -73,7 +73,7 @@ module.exports = {
   },
   plugins: [
     new VueLoaderPlugin(),
-    new MiniCssExtractPlugin(),//抽离css样式
+    new MiniCssExtractPlugin({filename: 'css/[name].css'}),//抽离css样式
     new CompressionWebpackPlugin({threshold: 1024}),//文件大于1K则压缩成gzip
     new HtmlWebpackPlugin({template: 'index.html'}),//生成一个新的 index.html 文件，并且引用相关的js文件
     new CopyWebpackPlugin([{from: resolve('static'), to: resolve('dist', 'static'), ignore: ['.*']}])
