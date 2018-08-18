@@ -1,12 +1,10 @@
 <template>
-  <main>
-    <router-link to="/home">index</router-link>
-  </main>
+  <main>home</main>
 </template>
 
 <script>
   export default {
-    name: 'index'
+    name: 'home'
   }
 </script>
 
