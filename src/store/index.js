@@ -4,12 +4,10 @@ import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 
-let store = new Vuex.Store({
+export default new Vuex.Store({
   state: {},
   getters: {},
   mutations: {},
   actions: {},
   plugins: [createPersistedState()]
 })
-
-export default store

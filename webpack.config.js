@@ -5,14 +5,14 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
 
-const webpackConfig = {
+module.exports = {
   //环境
   mode: process.env.mode,
   entry: {
     main: resolve('src/main.js')
   },
   output: {
-    // publicPath: 'https://baidu.com',//覆盖path路径使用CDN
+    //publicPath: 'https://baidu.com',//覆盖path路径使用CDN
     path: resolve('dist'),
     filename: '[name].js'
   },
@@ -74,7 +74,7 @@ const webpackConfig = {
   plugins: [
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin(),//抽离css样式
-    new CompressionWebpackPlugin({threshold: 10240}),//压缩成gzip
+    new CompressionWebpackPlugin({threshold: 1024}),//文件大于1K则压缩成gzip
     new HtmlWebpackPlugin({template: 'index.html'}),//生成一个新的 index.html 文件，并且引用相关的js文件
     new CopyWebpackPlugin([{from: resolve('static'), to: resolve('dist', 'static'), ignore: ['.*']}])
   ],
@@ -87,11 +87,9 @@ const webpackConfig = {
   //webpack-dev-server配置
   devServer: {
     //绑定主机,局域网能访问
-    host: '192.168.124.10',
+    // host: '0.0.0.0',
     //编译错误和改动才提示
     stats: 'minimal',
-    //gzip压缩
-    compress: true,
     //自动打开网页
     open: true,
     //端口
@@ -103,5 +101,3 @@ const webpackConfig = {
 function resolve(...dir) {
   return path.join(__dirname, ...dir)
 }
-
-module.exports = webpackConfig
