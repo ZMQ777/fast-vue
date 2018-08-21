@@ -5,7 +5,7 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-    {path: '/', component: () => import('@/index')},
-    {path: '/home', component: () => import('@/home')}
+    {path: '/', component: () => import('~/index')},
+    {path: '/home', component: () => import('~/home')}
   ]
 })
