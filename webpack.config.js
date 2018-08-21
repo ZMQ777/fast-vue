@@ -10,6 +10,7 @@ module.exports = {
   mode: process.env.mode,
   entry: {
     main: resolve('src', 'main.js')
+    // main: ['babel-polyfill', resolve('src', 'main.js')]//IE
   },
   output: {
     // publicPath: '/',
