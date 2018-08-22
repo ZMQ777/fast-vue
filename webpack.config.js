@@ -13,7 +13,7 @@ module.exports = {
     // main: ['babel-polyfill', resolve('src', 'main.js')]//IE
   },
   output: {
-    // publicPath: '/',
+    // publicPath: '',
     path: resolve('dist'),
     filename: join('js', '[name].[chunkhash].js')
   },
@@ -80,7 +80,8 @@ module.exports = {
   plugins: [
     new VueLoaderPlugin(),
     new HtmlWebpackPlugin({
-      template: 'index.html', minify: {
+      template: 'index.html',
+      minify: {
         removeComments: true,//删除注释
         collapseWhitespace: true,//删除空格
         removeAttributeQuotes: true//尽可能删除属性周围的引号
@@ -94,7 +95,12 @@ module.exports = {
   stats: 'minimal',
   optimization: {
     // 是否压缩js代码
-    minimize: true
+    // minimize: true,
+    //拆分模块
+    splitChunks: {
+      chunks: 'all',
+      name: 'commons'
+    }
   },
   // webpack-dev-server配置
   devServer: {
