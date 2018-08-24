@@ -2,6 +2,7 @@ const path = require('path')
 const {VueLoaderPlugin} = require('vue-loader')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
 
@@ -22,9 +23,9 @@ module.exports = {
     extensions: ['.js', '.vue', '.css', '.scss'],
     // 路径别名
     alias: {
+      // 'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
-      '~': resolve('src', 'pages'),
-      '$': resolve('src', 'components')
+      '~': resolve('src', 'pages')
     }
   },
   module: {
@@ -78,6 +79,7 @@ module.exports = {
     ]
   },
   plugins: [
+    new CleanWebpackPlugin('dist'),// 打包前删除dist目录
     new VueLoaderPlugin(),
     new HtmlWebpackPlugin({
       template: 'index.html',
@@ -91,8 +93,6 @@ module.exports = {
     new MiniCssExtractPlugin({filename: join('css', '[name].[contenthash].css')}),// 抽离css样式
     new CopyWebpackPlugin([{from: resolve('static'), to: 'static', ignore: ['.*']}])
   ],
-  // 编译错误和改动才提示
-  stats: 'minimal',
   optimization: {
     // 是否压缩js代码
     // minimize: true,
@@ -102,6 +102,8 @@ module.exports = {
       name: 'commons'
     }
   },
+  // 编译错误和改动才提示
+  stats: 'minimal',
   // webpack-dev-server配置
   devServer: {
     // 绑定主机,局域网能访问
