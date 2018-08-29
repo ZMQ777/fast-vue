@@ -1,4 +1,5 @@
 const path = require('path')
+const sass = require('sass')
 const {VueLoaderPlugin} = require('vue-loader')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
@@ -49,7 +50,12 @@ module.exports = {
           },
           'css-loader',
           'postcss-loader',
-          'sass-loader'
+          {
+            loader: 'sass-loader',
+            options: {
+              implementation: sass
+            }
+          }
         ]
       },
       {
