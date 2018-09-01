@@ -10,9 +10,7 @@
   }
 </script>
 
-<style lang="scss">
-  @import "scss/index";
-
+<style scoped lang="scss">
   .fade-enter-active, .fade-leave-active {
     transition: opacity .25s;
   }
@@ -20,5 +18,4 @@
   .fade-enter, .fade-leave-to {
     opacity: 0;
   }
-
 </style>
