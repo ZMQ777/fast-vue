@@ -7,6 +7,20 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
 
+const miniCssLoader = {
+  loader: MiniCssExtractPlugin.loader,
+  options: {
+    publicPath: '../../'
+  }
+}
+
+const sassLoader = {
+  loader: 'sass-loader',
+  options: {
+    implementation: sass
+  }
+}
+
 module.exports = {
   // 环境
   mode: process.env.mode,
@@ -40,22 +54,20 @@ module.exports = {
         loader: 'babel-loader'
       },
       {
-        test: /\.s?css$/,
+        test: /\.css$/,
         loader: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              publicPath: '../../'
-            }
-          },
+          miniCssLoader,
+          'css-loader',
+          'postcss-loader'
+        ]
+      },
+      {
+        test: /\.scss$/,
+        loader: [
+          miniCssLoader,
           'css-loader',
           'postcss-loader',
-          {
-            loader: 'sass-loader',
-            options: {
-              implementation: sass
-            }
-          }
+          sassLoader
         ]
       },
       {
@@ -108,8 +120,13 @@ module.exports = {
       name: 'commons'
     }
   },
-  // 编译错误和改动才提示
-  stats: 'minimal',
+  // 编译提示
+  stats: {
+    colors: true,
+    modules: false,
+    children: false,
+    warnings: false
+  },
   // webpack-dev-server配置
   devServer: {
     // 绑定主机,局域网能访问
