@@ -136,7 +136,10 @@ module.exports = {
     // 自动打开网页
     open: true,
     // 端口
-    port: 9999
+    port: 9999,
+    proxy: {
+      '/': 'http://127.0.0.1:3000'
+    }
   }
 }
 
